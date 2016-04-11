@@ -1,0 +1,14 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "DrugMan server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arthur Rocha de Menezes",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
