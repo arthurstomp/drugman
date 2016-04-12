@@ -1,0 +1,42 @@
+<div class="container" ng-init="fetchDrugs()">
+
+  <h2>Add a new Drug</h2>
+
+  <form class="form-inline" role="form">
+    <div class="form-group">
+      <label for="name">Name : </label>
+      <input type="text"
+             class="form-control"
+             placeholder="Drug name"
+             ng-model="name"
+             id="new-drug-input-name">
+    </div>
+    <button type="submit"
+            class="btn btn-default"
+            ng-click="createNewDrug()">
+            Add new drug
+    </button>
+  </form>
+
+  <h2>Drug List</h2>
+
+  <div class="table-responsive">
+    <table class=table>
+      <tr class="row drug-list" ng-repeat="drug in drugs">
+        <td>
+          <div class="col-md-6">
+            {{drug.name}}
+          </div>
+          <button class='btn btn-info col-md-3' type="button" name="edit-drug">Edit</button>
+          <button class='btn btn-danger col-md-3'
+                  type="button"
+                  name="delete-drug"
+                  ng-click="deleteDrug(drug)">
+                  Delete
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</div>

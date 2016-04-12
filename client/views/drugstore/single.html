@@ -1,0 +1,31 @@
+<div class="container" ng-init="fetchDrugstore()">
+
+  <h2>{{drugstore.name}}</h2>
+
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="name">Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" ng-value="drugstore.name" ng-model="name">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+    </div>
+  </form>
+
+  <h2>Drugs available at {{drugstore.name}}</h2>
+
+  <div class="table-responsive">
+    <table class=table>
+      <tr class="row drugstore-drug-row" ng-repeat="drugstoredrug in drugstoredrugs">
+        <td>
+          {{drugstoredrug.name}}
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</div>
