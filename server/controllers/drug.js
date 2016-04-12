@@ -63,8 +63,8 @@ router.put('/',function(req, res){
 });
 
 // Delete drug with :id.
-router.delete('/', function(req, res){
-  var id = req.body._id;
+router.delete('/:id', function(req, res){
+  var id = req.params['id'];
   console.log('DELETE Drug id = '+id);
 
   Drug.remove({_id: id}, function(err){
@@ -75,4 +75,5 @@ router.delete('/', function(req, res){
   });
 });
 
+// Export routes.
 module.exports = router;

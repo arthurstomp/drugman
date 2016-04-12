@@ -5,6 +5,7 @@ var express = require('express'),
     DrugstoreDrug = require('../models/drugstore_drug.js');
 
 // Drugstore CRUD
+// List all drugstores.
 router.get('/',function(req, res){
   console.log('GET list Drugstore');
   Drugstore.find(function(err, drugstores){
@@ -15,6 +16,7 @@ router.get('/',function(req, res){
   });
 });
 
+// Show drugstore with :id.
 router.get('/:id',function(req, res){
   var id = req.params['id'];
   console.log('GET Drugstore id = '+id);
@@ -27,6 +29,7 @@ router.get('/:id',function(req, res){
 
 });
 
+// Create new drugstore.
 router.post('/',function(req, res){
   console.log('POST create Drugstore');
   var drugstoreName = req.body.name;
@@ -38,6 +41,7 @@ router.post('/',function(req, res){
   })
 });
 
+// Update drugstore with id.
 router.put('/',function(req, res){
   var id = req.body._id,
       name = req.body.name;
@@ -54,8 +58,9 @@ router.put('/',function(req, res){
   console.log('PUT update Drugstore id = '+id);
 });
 
-router.delete('/', function(req, res){
-  var id = req.body._id;
+// Delete drugstore with :id.
+router.delete('/:id', function(req, res){
+  var id = req.params['id'];
   console.log('DELETE Drugstore id = '+id);
   Drugstore.remove({_id: id}, function(err){
     if(err){
@@ -65,7 +70,9 @@ router.delete('/', function(req, res){
   })
 });
 
-// Routes to access drug from a Drugstore
+// Routes to access drug from a Drugstore.
+// CRUD DrugstoreDrug.
+// List all drugstore-drugs from :ds drugstore.
 router.get('/:ds/drug',function(req, res){
   var drugstoreId = req.params['ds'];
   console.log('GET list of all drugs from drugstore('+drugstoreId+')');
@@ -77,6 +84,7 @@ router.get('/:ds/drug',function(req, res){
   });
 });
 
+// Show drugstore-drug from :ds drugstore with :id.
 router.get('/:ds/drug/:id',function(req, res){
   var drugstoreId = req.params['ds'],
       drugId      = req.params['id'];
@@ -89,6 +97,7 @@ router.get('/:ds/drug/:id',function(req, res){
   });
 });
 
+// Create drugstore-drug
 router.post('/drug',function(req, res){
   var drugstoreId = req.body.drugstoreId,
       drugId = req.body.drugId,
@@ -109,6 +118,7 @@ router.post('/drug',function(req, res){
   })
 });
 
+// Update drugstore-drug.
 router.put('/drug', function(req, res){
   var drugstoreId = req.body.drugstoreId,
       drugId = req.body.drugId,
@@ -133,9 +143,10 @@ router.put('/drug', function(req, res){
   )
 });
 
-router.delete('/drug', function(req, res){
-  var drugstoreId = req.body.drugstoreId,
-      drugId = req.body.drugId;
+// Delete drugstore-drug.
+router.delete('/:dsid/drug/:id', function(req, res){
+  var drugstoreId = req.params['dsid'],
+      drugId = req.params['id'];
   console.log('DELETE drug('+drugId+') from drugstore('+drugstoreId+')');
   DrugstoreDrug.remove({
     drugstoreId: drugstoreId,
@@ -148,4 +159,5 @@ router.delete('/drug', function(req, res){
   })
 });
 
+// Export routes.
 module.exports = router;
