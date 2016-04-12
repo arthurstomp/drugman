@@ -6,6 +6,8 @@ var express = require('express'),
     drugCtrl = require('./controllers/drug.js'),
     seed = require('./seed.js');
 
+// Set middleware to be used.
+// Parse request body to json.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -29,9 +31,12 @@ app.use(function timelog(req, res, next){
   next();
 });
 
+// Set routes started with /drugstore.
 app.use('/drugstore',drugstoreCtrl);
+// Set routes started with /drug.
 app.use('/drug',drugCtrl);
 
+// Start server.
 app.listen(3000, function(){
   console.log("Listening at port 3000");
 });
