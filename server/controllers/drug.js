@@ -5,7 +5,6 @@ var express = require('express'),
 // Drug CRUD
 router.get('/',function(req, res){
   console.log('GET list Drug');
-  res.end();
 });
 
 router.get('/:id',function(req, res){
