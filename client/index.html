@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en">
+<html lang="en" ng-app="Drugman">
 <head>
   <meta charset="utf-8">
 
@@ -8,20 +8,38 @@
   <meta name="description" content="Drugstore management system">
   <meta name="author" content="Arthur Rocha de Menezes">
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <script src="bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 </head>
 
 <body>
+
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="">DrugMan</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/drug">Drug Catalog</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
   <div ng-view></div>
 
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="app.js"></script>
+  <script src="controllers.js"></script>
 
 </body>
 </html>
