@@ -16,7 +16,7 @@ var DrugstoreSchema = new Schema({
 // deleted.
 DrugstoreSchema.pre('remove',function(next){
   console.log('Drugstore pre remove middleware. Cascade remove DrugstoreDrugs');
-  DrugstoreDrug.remove({drugstoreId: this._id}).exec();
+  DrugstoreDrug.remove({drugstore: this._id}).exec();
   next();
 });
 

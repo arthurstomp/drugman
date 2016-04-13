@@ -13,7 +13,7 @@ var DrugSchema = new Schema({
 // deleted.
 DrugSchema.pre('remove',function(next){
   console.log('Drug pre remove middleware. Cascade remove DrugstoreDrugs');
-  DrugstoreDrug.remove({drugId: this._id}).exec();
+  DrugstoreDrug.remove({drug: this._id}).exec();
   next();
 });
 

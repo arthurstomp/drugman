@@ -60,16 +60,28 @@ function seed(){
 
   // Create DrugstoreDrugs.
   var drogd1 = new DrugstoreDrug({
-        drugstoreId: drogasil._id,
-        drugId: neosoro._id,
+        drugstore: drogasil._id,
+        drug: neosoro._id,
         stock: 100,
         price: 10.0,
       }),
       drogd2 = new DrugstoreDrug({
-        drugstoreId: drogasil._id,
-        drugId: salonpas._id,
+        drugstore: drogasil._id,
+        drug: salonpas._id,
         stock: 10,
         price: 20.0,
+      }),
+      drogd3 = new DrugstoreDrug({
+        drugstore: menorPreco._id,
+        drug: salonpas._id,
+        stock: 90,
+        price: 10.0,
+      }),
+      drogd4 = new DrugstoreDrug({
+        drugstore: menorPreco._id,
+        drug: neosoro._id,
+        stock: 10,
+        price: 50.0,
       });
 
   // Save models into db.
@@ -87,6 +99,8 @@ function seed(){
 
   drogd1.save(createCallback);
   drogd2.save(createCallback);
+  drogd3.save(createCallback);
+  drogd4.save(createCallback);
 }
 
 // Export seed function.

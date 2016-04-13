@@ -1,8 +1,10 @@
 'use strict'
 var express = require('express'),
     router  = express.Router(),
+    mongoose = require('mongoose'),
     Drugstore = require('../models/drugstore.js'),
-    DrugstoreDrug = require('../models/drugstore_drug.js');
+    DrugstoreDrug = require('../models/drugstore_drug.js'),
+    Drug = require('../models/drug.js');
 
 // Drugstore CRUD
 // List all drugstores.
@@ -76,8 +78,8 @@ router.delete('/:id', function(req, res){
 router.get('/:ds/drug',function(req, res){
   var drugstoreId = req.params['ds'];
   console.log('GET list of all drugs from drugstore('+drugstoreId+')');
-  DrugstoreDrug.find({drugstoreId: drugstoreId}, function(err, drugstoreDrugs){
-    if(err){
+  DrugstoreDrug.find({drugstore: drugstoreId}).populate('drug').exec(function(err, drugstoreDrugs){
+    if (err) {
       res.send(err);
     }
     res.json(drugstoreDrugs);
@@ -89,7 +91,7 @@ router.get('/:ds/drug/:id',function(req, res){
   var drugstoreId = req.params['ds'],
       drugId      = req.params['id'];
   console.log('GET drug('+drugId+') from drugstore('+drugstoreId+')');
-  DrugstoreDrug.find({drugstoreId: drugstoreId, drugId: drugId}, function(err,dd){
+  DrugstoreDrug.find({drugstore: drugstoreId, drug: drugId}, function(err,dd){
     if(err){
       res.send(err);
     }
@@ -106,8 +108,8 @@ router.post('/drug',function(req, res){
   console.log('POST create or increment stock of drug('+drugId+')'+
               ' at drugstore('+drugstoreId+')');
   DrugstoreDrug.create({
-    drugstoreId: drugstoreId,
-    drugId: drugId,
+    drugstore: drugstoreId,
+    drug: drugId,
     stock: stock,
     price: price,
   },function(err){
@@ -127,8 +129,8 @@ router.put('/drug', function(req, res){
   console.log('PUT update drug('+drugId+') at drugstore('+drugstoreId+')');
   DrugstoreDrug.update(
     {
-      drugstoreId: drugstoreId,
-      drugId: drugId,
+      drugstore: drugstoreId,
+      drug: drugId,
     },
     {
       stock: stock,
