@@ -1,8 +1,8 @@
 var drugCtrl = angular.module('drugCtrl',[]);
 
 drugCtrl.controller('ListDrugCtrl',
-  ['$scope','$http',
-  function($scope,$http){
+  ['$scope','$http','$location',
+  function($scope,$http,$location){
     console.log("ListDrugCtrl");
 
     $scope.fetchDrugs = function(){
@@ -34,6 +34,12 @@ drugCtrl.controller('ListDrugCtrl',
         $scope.fetchDrugs();
       });
     }
+
+    $scope.gotoDrug = function(drug){
+      var drugId = drug._id,
+          drugUrl = 'drug/'+drugId;
+      $location.path(drugUrl);
+    }
 }]);
 
 drugCtrl.controller('SingleDrugCtrl',
@@ -44,6 +50,6 @@ drugCtrl.controller('SingleDrugCtrl',
     $http.get('drug/'+drugId).then(function(response){
       console.log('Drug fetched from server');
       console.log(response.data);
-      $scope.drug = respose.data[0];
+      $scope.drug = response.data;
     });
 }]);

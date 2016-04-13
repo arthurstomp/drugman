@@ -35,8 +35,8 @@ drugstoreCtrls.controller('ListDSCtrl',
 }]);
 
 drugstoreCtrls.controller('SingleDSCtrl',
-  ['$scope','$http','$routeParams',
-  function($scope,$http,$routeParams){
+  ['$scope','$http','$routeParams','$location',
+  function($scope,$http,$routeParams, $location){
     var drugstoreId = $routeParams.id;
     console.log("SingleDSCtrl. id = "+drugstoreId);
 
@@ -48,17 +48,35 @@ drugstoreCtrls.controller('SingleDSCtrl',
       });
     }
 
+    $scope.updateDrugstore = function(drugstore){
+      var drugstoreId = drugstore._id,
+          drugstoreNewName = $scope.name;
+      console.log("Update drugstore");
+      if (drugstoreNewName != drugstore.name &&
+          (drugstoreNewName != "" || drugstoreNewName != undefined)) {
+        $http.put('/drugstore',{_id: drugstoreId, name: drugstoreNewName}).success(function(data,status){
+          console.log(data.message);
+          $scope.drugstore.name = drugstoreNewName;
+        });
+      }
+    }
+
+    $scope.deleteDrugstore = function(drugstore){
+      var drugstoreId = drugstore._id,
+          deleteUrl = 'drugstore/'+drugstoreId;
+      console.log('Delete drugstore '+drugstore.name);
+      $http.delete(deleteUrl).then(function(response){
+        console.log(response.message);
+        $location.path('/');
+      });
+    }
+
     $scope.fetchDrugsFromDrugstore = function(){
-      var drugstoreDrugsUrl = '/drugstore/'+drugstoreId+'/drug',
-          drugstoreDrugs;
-      // Need to create a route that returns the drugstore-drugs completed with
-      // drugs info.
+      var drugstoreDrugsUrl = '/drugstore/'+drugstoreId+'/drug';
       $http.get(drugstoreDrugsUrl).then(function(response){
         console.log('Drugs from drugstore '+$scope.drugstore.name+' fetched');
         console.log(response.data);
-        drugstoreDrugs = response.data;
-        var drugsUrl = '/drug'
-        $http.get(url)
+        $scope.drugstoreDrugs = response.data;
       });
     }
 

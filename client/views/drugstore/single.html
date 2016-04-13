@@ -11,18 +11,31 @@
     </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-success">Save</button>
+        <button type="submit"
+                class="btn btn-success"
+                ng-click="updateDrugstore(drugstore)">Save</button>
+        <button type="button"
+                class="btn btn-danger"
+                ng-click="deleteDrugstore(drugstore)">Delete</button>
       </div>
     </div>
   </form>
 
   <h2>Drugs available at {{drugstore.name}}</h2>
 
-  <div class="table-responsive">
+  <div class="table-responsive" ng-init=fetchDrugsFromDrugstore()>
     <table class=table>
-      <tr class="row drugstore-drug-row" ng-repeat="drugstoredrug in drugstoredrugs">
+      <tr class="row drugstore-drug-row" ng-repeat="drugstoreDrug in drugstoreDrugs">
         <td>
-          {{drugstoredrug.name}}
+          <div class="col-md-3">
+            {{drugstoreDrug.drug.name}}
+          </div>
+          <div class="col-md-3">
+            Stock : {{drugstoreDrug.stock}}
+          </div>
+          <div class="col-md-3">
+            Price : {{drugstoreDrug.price}}
+          </div>
         </td>
       </tr>
     </table>
